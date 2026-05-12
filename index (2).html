@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italo Svevo — La Coscienza della Modernità</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void:    #0d0b14;
+    --deep:    #120f1e;
+    --mid:     #1a1530;
+    --surface: #201b38;
+    --panel:   #251f40;
+    --yellow:  #f5c518;
+    --yellow2: #ffd84d;
+    --yglw:    rgba(245,197,24,0.15);
+    --yglw2:   rgba(245,197,24,0.08);
+    --purple:  #7b5ea7;
+    --lilac:   #b89fdc;
+    --text:    #e8e2f5;
+    --muted:   #9087b0;
+    --border:  rgba(123,94,167,0.25);
+    --glow:    0 0 40px rgba(245,197,24,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.55) 0%, transparent 100%),
+      radial-gradient(1px 1px at 34% 72%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 58% 9%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 54%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 91% 31%, rgba(255,255,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 88%, rgba(255,255,255,0.28) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 46% 43%, rgba(255,255,255,0.38) 0%, transparent 100%),
+      radial-gradient(1px 1px at 67% 81%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 23% 55%, rgba(255,255,255,0.22) 0%, transparent 100%),
+      radial-gradient(1px 1px at 84% 13%, rgba(255,255,255,0.4) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(13,11,20,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    animation: slideDown 0.7s 0.3s ease forwards;
+  }
+  @keyframes slideDown { to { transform: translateY(0); } }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-cta {
+    background: var(--yellow) !important;
+    color: var(--void) !important;
+    padding: 0.45rem 1.2rem;
+    font-weight: 700 !important;
+    border-radius: 2px;
+    transition: background 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--yellow2) !important; box-shadow: var(--glow); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: -10%; right: -5%;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,94,167,0.32) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-accent-bar {
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 100%;
+    background: var(--yellow);
+    clip-path: polygon(62% 0, 100% 0, 100% 100%, 100% 100%);
+    z-index: 0;
+  }
+
+  .hero-left {
+    padding: 5rem 4rem 5rem 6rem;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateX(-40px);
+    animation: fadeSlideIn 1s 0.6s ease forwards;
+  }
+  @keyframes fadeSlideIn { to { opacity: 1; transform: translate(0); } }
+
+  .hero-eyebrow {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 2px;
+    background: var(--yellow);
+  }
+
+  h1.hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 0.95;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  h1.hero-title em {
+    font-style: normal;
+    color: var(--yellow);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    margin: 1.5rem 0 2.5rem;
+    border-left: 3px solid var(--yellow);
+    padding-left: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .hero-meta {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    background: var(--yellow);
+    color: var(--void);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 2.2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .hero-btn:hover {
+    background: var(--yellow2);
+    box-shadow: var(--glow);
+    transform: translateY(-2px);
+  }
+
+  .hero-right {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.9s ease forwards;
+    z-index: 1;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .hero-image-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 5rem 4rem 2rem;
+  }
+
+  .hero-portrait-frame {
+    position: relative;
+    width: 380px;
+    max-width: 90%;
+  }
+  .hero-portrait-frame::before {
+    content: '';
+    position: absolute;
+    top: -12px; left: -12px;
+    right: 12px; bottom: 12px;
+    border: 2px solid var(--yellow);
+    z-index: 0;
+    box-shadow: var(--glow);
+  }
+  .hero-portrait-frame::after {
+    content: '';
+    position: absolute;
+    bottom: -12px; right: -12px;
+    top: 12px; left: 12px;
+    background: rgba(123,94,167,0.2);
+    z-index: -1;
+  }
+  .hero-portrait-frame img {
+    width: 100%;
+    display: block;
+    filter: sepia(20%) contrast(1.1) brightness(0.85) saturate(0.8);
+    position: relative;
+    z-index: 1;
+  }
+  .portrait-caption {
+    position: absolute;
+    bottom: -2.5rem;
+    right: 0;
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.56rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-align: right;
+  }
+
+  .planet-deco { position: absolute; border-radius: 50%; pointer-events: none; }
+  .planet-1 {
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 35% 35%, #2a2060, #0d0b14);
+    border: 1px solid rgba(123,94,167,0.4);
+    top: 15%; right: 8%;
+    box-shadow: 0 0 30px rgba(123,94,167,0.3);
+    animation: floatY 6s ease-in-out infinite;
+  }
+  .planet-2 {
+    width: 20px; height: 20px;
+    background: radial-gradient(circle at 40% 40%, #f5c518, #8b6a00);
+    top: 28%; right: 18%;
+    box-shadow: 0 0 14px rgba(245,197,24,0.5);
+    animation: floatY 4s 1s ease-in-out infinite;
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 6rem;
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+    animation: bounce 2.5s infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px; height: 50px;
+    background: linear-gradient(var(--yellow), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* SECTIONS */
+  section, .detail-section { padding: 7rem 0; position: relative; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-tag {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    max-width: 50px;
+    height: 2px;
+    background: var(--yellow);
+  }
+
+  h2.section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    color: var(--text);
+  }
+
+  /* TIMELINE */
+  #timeline {
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+  }
+  #timeline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(123,94,167,0.1) 0%, transparent 60%);
+  }
+
+  .timeline-track { position: relative; padding: 3rem 0; }
+  .timeline-line {
+    position: absolute;
+    left: 140px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--yellow) 10%, var(--yellow) 90%, transparent);
+    opacity: 0.4;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3.2rem;
+    position: relative;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+  .timeline-year {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--yellow);
+    text-align: right;
+    padding-top: 0.15rem;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: 132px; top: 0.4rem;
+    width: 17px; height: 17px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 3px solid var(--deep);
+    box-shadow: 0 0 10px rgba(245,197,24,0.6);
+  }
+  .timeline-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .timeline-content p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+  /* TOPICS */
+  #topics { background: var(--void); }
+  #topics::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 60%, rgba(123,94,167,0.08) 0%, transparent 55%);
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .topic-card {
+    background: var(--deep);
+    padding: 2rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s;
+  }
+  .topic-card.visible { opacity: 1; transform: translateY(0); }
+  .topic-card:hover {
+    background: var(--panel);
+    box-shadow: inset 0 0 0 1px rgba(245,197,24,0.28);
+  }
+  .topic-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .topic-card:hover::after { transform: scaleX(1); }
+
+  .card-num {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.56rem;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  .topic-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.7rem;
+    color: var(--text);
+  }
+  .topic-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+  /* DETAIL SECTIONS */
+  .detail-section { border-top: 1px solid var(--border); }
+  .detail-section:nth-child(odd) { background: var(--void); }
+  .detail-section:nth-child(even) { background: var(--deep); }
+  .detail-section::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,94,167,0.07) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .detail-layout.reverse { direction: rtl; }
+  .detail-layout.reverse > * { direction: ltr; }
+
+  .detail-text h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  .detail-text p { margin-bottom: 1.2rem; color: var(--muted); font-size: 0.97rem; line-height: 1.8; }
+  .detail-text p:last-child { margin-bottom: 0; }
+
+  blockquote {
+    border-left: 3px solid var(--yellow);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: var(--yglw2);
+    box-shadow: inset 0 0 0 1px rgba(245,197,24,0.1);
+  }
+  blockquote p { font-style: italic; font-size: 1rem !important; color: var(--text) !important; line-height: 1.65 !important; }
+  blockquote cite {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  .visual-panel { position: sticky; top: 6rem; }
+
+  .concept-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .concept-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--yellow), var(--purple));
+  }
+  .concept-box h4 {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+  .concept-box p { font-size: 0.88rem; line-height: 1.7; color: var(--muted); }
+
+  .schema-box {
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    background: rgba(13,11,20,0.5);
+  }
+  .schema-box h4 {
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+  }
+
+  .schema-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+  .schema-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--yellow);
+    flex-shrink: 0;
+    margin-top: 0.55rem;
+    box-shadow: 0 0 6px rgba(245,197,24,0.5);
+  }
+  .schema-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.1rem;
+  }
+  .schema-desc { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+
+  /* COMPARISON */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2.5rem;
+  }
+  .comparison-col { padding: 2.5rem; }
+  .comparison-col:first-child { background: var(--panel); }
+  .comparison-col:last-child { background: var(--deep); }
+  .comparison-col h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-col:first-child h3 { color: var(--yellow); }
+  .comparison-col:last-child h3  { color: var(--lilac); }
+  .comparison-col ul { list-style: none; font-size: 0.88rem; }
+  .comparison-col li {
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0.8rem;
+    color: var(--muted);
+  }
+  .comparison-col li::before {
+    content: '→';
+    font-family: 'Syne Mono', monospace;
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+  }
+  .comparison-col:first-child li::before { color: var(--yellow); }
+  .comparison-col:last-child li::before  { color: var(--lilac); }
+
+  /* EXPLOSION */
+  .explosion-visual {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .explosion-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(245,197,24,0.05) 0%, transparent 70%);
+  }
+
+  .explosion-circle {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    border: 1px solid var(--yellow);
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pulse 3s infinite;
+    box-shadow: 0 0 40px rgba(245,197,24,0.1);
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,197,24,0.3); }
+    50% { box-shadow: 0 0 0 25px rgba(245,197,24,0); }
+  }
+  .explosion-circle::before {
+    content: '';
+    position: absolute;
+    width: 135px; height: 135px;
+    border-radius: 50%;
+    border: 1px solid rgba(245,197,24,0.3);
+    animation: pulse 3s 0.5s infinite;
+  }
+  .explosion-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--yellow);
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+  .explosion-quote {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+    line-height: 1.65;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--void);
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    text-align: center;
+    padding: 3rem;
+    font-family: 'Syne Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+  }
+  footer span { color: var(--yellow); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 5rem 2rem; }
+    .topics-grid { grid-template-columns: 1fr 1fr; }
+    .detail-layout, .detail-layout.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .visual-panel { position: static; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .container { padding: 0 1.5rem; }
+    .comparison-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .topics-grid { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Italo Svevo · 1861–1928</div>
+  <ul class="nav-links">
+    <li><a href="#timeline">Vita</a></li>
+    <li><a href="#topics">Temi</a></li>
+    <li><a href="#zeno">Zeno</a></li>
+    <li><a href="#psicoanalisi">Psicoanalisi</a></li>
+    <li><a href="#poetica">Poetica</a></li>
+    <li><a href="#finale">Finale</a></li>
+    <li><a href="#topics" class="nav-cta">Studia ora</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-accent-bar"></div>
+  <div class="planet-1 planet-deco"></div>
+  <div class="planet-2 planet-deco"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Letteratura del Novecento</div>
+    <h1 class="hero-title">Italo<em>Svevo</em></h1>
+    <p class="hero-subtitle">
+      «Perché voler curare la nostra malattia?<br>
+      Davvero dobbiamo togliere all'umanità quello ch'essa ha di meglio?»
+    </p>
+    <div class="hero-meta">Trieste, 1861 — Motta di Livenza, 1928 · La coscienza di Zeno</div>
+    <a href="#timeline" class="hero-btn">Scopri le lezioni</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-image-wrap">
+      <div class="hero-portrait-frame">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Italo_Svevo.jpg/800px-Italo_Svevo.jpg"
+          alt="Ritratto di Italo Svevo"
+          onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/9/9d/Ettore_Schmitz.jpg'"
+        />
+        <div class="portrait-caption">Ettore Schmitz, detto Italo Svevo · Trieste</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scorri</div>
+</section>
+
+<section id="timeline">
+  <div class="container">
+    <div class="section-tag">Cronologia</div>
+    <h2 class="section-title">La vita in cinque atti</h2>
+    <div class="timeline-track">
+      <div class="timeline-line"></div>
+      <div class="timeline-item">
+        <div class="timeline-year">1861</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Nascita a Trieste</h3>
+          <p>Nasce Aron Ettore Schmitz da famiglia borghese di origine ebraica a Trieste, allora parte dell'Impero Austro-Ungarico. La città di frontiera plasma la sua identità culturale ibrida.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1880s</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Giornalismo e primi scritti</h3>
+          <p>Lavora come impiegato di banca e collabora al giornale triestino <em>L'Indipendente</em>. Studia Schopenhauer, Darwin e le prime teorie di Freud, che diventeranno le fondamenta della sua poetica.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1892</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3><em>Una vita</em> — il primo romanzo</h3>
+          <p>Pubblica il primo romanzo con lo pseudonimo "Italo Svevo", fusione simbolica di italianità e cultura tedesca (svevo = svabico). Il libro viene ignorato dalla critica.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1898</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3><em>Senilità</em></h3>
+          <p>Pubblica il secondo romanzo. Anche questo passa inosservato. Svevo si ritira dalla letteratura per oltre vent'anni, deluso dall'indifferenza del pubblico italiano.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1907</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>James Joyce a Trieste</h3>
+          <p>Conosce James Joyce, suo insegnante di inglese. I due diventano amici fraterni. Joyce legge <em>Senilità</em> e lo incoraggia a riprendere a scrivere, riconoscendo la sua eccezionale modernità.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1919</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Incontro con la psicoanalisi</h3>
+          <p>Si avvicina agli studi di Sigmund Freud. La psicoanalisi non è per lui una terapia da credere ciecamente, ma uno straordinario strumento letterario per esplorare l'inconscio.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1923</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3><em>La coscienza di Zeno</em></h3>
+          <p>Pubblica il capolavoro. Joyce ne promuove la traduzione in francese. Le recensioni entusiaste di Parigi arrivano finalmente in Italia: Svevo viene riscoperto a sessant'anni. Eugenio Montale scrive il primo grande saggio critico su di lui.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">1928</div>
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>Morte improvvisa</h3>
+          <p>Muore il 13 settembre a Motta di Livenza in seguito a un incidente d'auto, lasciando incompiuto il romanzo <em>Il vecchione</em>. Aveva appena raggiunto la fama internazionale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="topics">
+  <div class="container">
+    <div class="section-tag">Temi del corso</div>
+    <h2 class="section-title">I grandi nuclei della lezione</h2>
+    <div class="topics-grid">
+      <div class="topic-card reveal">
+        <div class="card-num">01 / 08</div>
+        <h3>La struttura non cronologica</h3>
+        <p>Il romanzo segue il tempo della coscienza, non quello degli eventi. Memoria, inconscio e autoanalisi frammentano la narrazione.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">02 / 08</div>
+        <h3>Manzoni vs Svevo: la verità</h3>
+        <p>Dall'oggettività storica ottocentesca alla verità soggettiva e ambigua del Novecento: come cambia il concetto di realtà nel romanzo.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">03 / 08</div>
+        <h3>Tre giudizi sull'inetto</h3>
+        <p>Dottor S., Alberta e il padre vedono Zeno in tre modi opposti. Nessuno riesce a definirlo completamente.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">04 / 08</div>
+        <h3>Zeno e il padre</h3>
+        <p>Il conflitto fondamentale tra l'uomo delle certezze immobili e l'uomo del dubbio. Lo schiaffo come trauma permanente.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">05 / 08</div>
+        <h3>Complessità della vita</h3>
+        <p>Il violino e la zoppia: due episodi ironici che mostrano come l'eccesso di coscienza paralizzi l'azione spontanea.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">06 / 08</div>
+        <h3>Il funerale mancato</h3>
+        <p>Un lapsus freudiano: l'inconscio trova la strada per evitare ciò che la coscienza non vuole affrontare.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">07 / 08</div>
+        <h3>L'inetto come uomo futuro</h3>
+        <p>Il darwinismo reinterpretato da Svevo: l'imperfetto, non il forte, è chi può ancora evolversi.</p>
+      </div>
+      <div class="topic-card reveal">
+        <div class="card-num">08 / 08</div>
+        <h3>Pirandello vs Svevo</h3>
+        <p>Due poetiche dell'ironia: per Pirandello svela la tragedia, per Svevo la nasconde e la rende sopportabile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="zeno" class="detail-section">
+  <div class="container">
+    <div class="detail-layout">
+      <div class="detail-text reveal">
+        <div class="section-tag">Lezione I</div>
+        <h2>La struttura<br>non cronologica</h2>
+        <p>In <em>La coscienza di Zeno</em> accade qualcosa di insolito: la vita del protagonista non viene raccontata in ordine cronologico. Non perché non abbia una cronologia, ma perché il romanzo sceglie un altro criterio: quello della <strong style="color:var(--yellow)">coscienza</strong>.</p>
+        <p>Il romanzo è organizzato in capitoli tematici — il fumo, la morte del padre, la storia del matrimonio, la relazione con Carla, gli affari con Guido, la psicoanalisi — che seguono il tempo della memoria, non della vita.</p>
+        <blockquote>
+          <p>«I ricordi non emergono secondo l'ordine degli eventi, ma secondo associazioni interiori. Un ricordo ne richiama un altro, spesso senza rispettare la sequenza temporale.»</p>
+          <cite>— Dagli appunti di lezione</cite>
+        </blockquote>
+        <p>Svevo scrive in un'epoca in cui si diffondono le idee della psicoanalisi. La memoria è influenzata dall'inconscio: desideri, paure e sensi di colpa deformano il modo in cui ricordiamo il passato. La narrazione diventa così una forma di <em>autoanalisi perpetua</em>: Zeno racconta per capirsi, ma non riesce mai ad arrivare a una verità definitiva.</p>
+      </div>
+      <div class="visual-panel reveal">
+        <div class="concept-box">
+          <h4>Due livelli del romanzo</h4>
+          <p>La <strong style="color:var(--yellow)">vita reale di Zeno</strong> ha una cronologia: nasce, studia, sposa Augusta, tradisce con Carla, lavora con Guido, diventa ricco durante la guerra.</p>
+          <br>
+          <p>Il <strong style="color:var(--yellow)">racconto di Zeno</strong> segue il percorso della coscienza: la narrazione è frammentata, piena di contraddizioni e autoinganni.</p>
+          <br>
+          <p style="font-size:0.83rem;">Proprio questa frattura tra vita vissuta e coscienza che ricorda è uno degli elementi più moderni del romanzo.</p>
+        </div>
+        <div class="schema-box">
+          <h4>Tappe della vita (cronologica)</h4>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Infanzia a Trieste</div><div class="schema-desc">Indecisione come tratto caratteriale permanente</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Lo schiaffo del padre</div><div class="schema-desc">Trauma fondamentale e senso di colpa indelebile</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Matrimonio con Augusta</div><div class="schema-desc">Non la più bella, ma la più stabile e affettuosa</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Relazione con Carla</div><div class="schema-desc">Tentativo di vivere una vita più intensa</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Affari con Guido</div><div class="schema-desc">Rivale brillante ma superficiale, morirà suicida</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Successo durante la guerra</div><div class="schema-desc">L'inetto diventa improvvisamente capace</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section">
+  <div class="container">
+    <div class="detail-layout reverse">
+      <div class="detail-text reveal">
+        <div class="section-tag">Lezione III</div>
+        <h2>Tre giudizi<br>sull'inetto</h2>
+        <p>Svevo non ci presenta solo il personaggio di Zeno: ci mostra come viene <em>giudicato dagli altri</em>. Attraverso questi giudizi il lettore è costretto a porsi una domanda fondamentale: Zeno è un fallito o rappresenta qualcosa di nuovo nella storia dell'uomo?</p>
+        <p><strong style="color:var(--text)">Il dottor S. (lo scienziato)</strong> crede nella psicoanalisi come metodo di analisi dell'anima. Avverte però che il racconto di Zeno è un miscuglio di verità e bugie. La scienza non riesce a contenere completamente la sua personalità.</p>
+        <p><strong style="color:var(--text)">Alberta (l'intellettuale)</strong> coglie in lui qualcosa che i professori non possiedono:</p>
+        <blockquote>
+          <p>«Senza saperlo sapete molte cose, mentre i miei professori sanno esattamente quello che sanno.»</p>
+          <cite>— Alberta Malfenti, <em>La coscienza di Zeno</em></cite>
+        </blockquote>
+        <p><strong style="color:var(--text)">Il padre (l'uomo comune)</strong> dà il giudizio più netto: «Resta però assodato che tu sei un pazzo.» Non riesce ad accettare un individuo che non segue le regole stabilite dalla società borghese.</p>
+        <p>Nessuno dei tre riesce a definire completamente Zeno. Alla fine emerge l'idea sorprendente: l'inetto non è il fallito — è l'<em>abbozzo dell'uomo futuro</em>.</p>
+      </div>
+      <div class="visual-panel reveal">
+        <div class="schema-box">
+          <h4>Tre prospettive su Zeno</h4>
+          <div class="schema-item" style="margin-bottom:1.4rem">
+            <div class="schema-dot" style="background:var(--purple); box-shadow:0 0 6px rgba(123,94,167,0.6)"></div>
+            <div><div class="schema-label">Dottor S. — Lo scienziato</div><div class="schema-desc">Usa la psicoanalisi come strumento. Per lui Zeno è un paziente con conflitti interiori da portare alla luce. Ma Zeno sfugge a ogni interpretazione troppo rigida.</div></div>
+          </div>
+          <div class="schema-item" style="margin-bottom:1.4rem">
+            <div class="schema-dot"></div>
+            <div><div class="schema-label">Alberta — L'intellettuale</div><div class="schema-desc">Riconosce in Zeno una conoscenza intuitiva e trasversale, nata dall'esperienza e dalla curiosità. Non specialistica, ma più ampia.</div></div>
+          </div>
+          <div class="schema-item">
+            <div class="schema-dot" style="background:var(--lilac); box-shadow:0 0 6px rgba(184,159,220,0.5)"></div>
+            <div><div class="schema-label">Il padre — L'uomo comune</div><div class="schema-desc">Rappresenta la borghesia triestina. Per lui Zeno è semplicemente pazzo. Il suo giudizio rivela l'incapacità della società di accettare un individuo diverso.</div></div>
+          </div>
+        </div>
+        <div class="concept-box" style="margin-top:1.5rem">
+          <h4>L'inetto come abbozzo</h4>
+          <p>Quella che sembra una malattia diventa il segno della modernità. L'inetto non è colui che fallisce: è colui che vede il mondo con occhi più inquieti e più consapevoli.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section">
+  <div class="container">
+    <div class="detail-layout">
+      <div class="detail-text reveal">
+        <div class="section-tag">Lezione V</div>
+        <h2>Zeno di fronte alla<br>complessità della vita</h2>
+        <p>Due episodi illuminano il tema dell'eccesso di coscienza con ironia tagliente.</p>
+        <p><strong style="color:var(--text)">La gara musicale con Guido.</strong> Zeno si blocca sempre nello stesso passaggio difficile del brano. Guido invece avanza con sicurezza. La differenza non è tecnica: è attitudinale. Guido suona in modo istintivo e superficiale. Zeno percepisce con intensità la profondità del passaggio musicale — e proprio questa consapevolezza lo paralizza. <em>Chi non riflette troppo procede; chi vede la complessità resta bloccato.</em></p>
+        <p><strong style="color:var(--text)">L'incontro con Tullio al caffè.</strong> Tullio racconta a Zeno il problema alla gamba con analisi quasi meccanica. Quando Zeno esce dal caffè:</p>
+        <blockquote>
+          <p>«Uscii da quel caffè zoppicando e per alcuni giorni zoppicai sempre.»</p>
+          <cite>— Zeno Cosini, <em>La coscienza di Zeno</em></cite>
+        </blockquote>
+        <p>Non è malattia: è un effetto psicologico. La spiegazione troppo dettagliata ha trasformato un gesto naturale — camminare — in un'azione complicata e problematica. <strong style="color:var(--yellow)">Quando la vita viene analizzata troppo, perde la sua naturalezza.</strong></p>
+      </div>
+      <div class="visual-panel reveal">
+        <div class="concept-box">
+          <h4>La coscienza ipertrofica</h4>
+          <p>L'inetto sveviano non è semplicemente debole o incapace. È un individuo dotato di una coscienza troppo sviluppata.</p>
+          <br>
+          <p style="font-size:0.85rem;">Negli uomini «sani» esiste una spontaneità che permette di affrontare la vita senza interrogarsi continuamente. Zeno invece vive in uno stato di permanente autoanalisi.</p>
+        </div>
+        <div class="schema-box" style="margin-top:1.5rem">
+          <h4>Schema dei due episodi</h4>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Il violino</div><div class="schema-desc">Difficoltà artistica → coscienza della complessità → blocco nell'azione</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">La zoppia</div><div class="schema-desc">Descrizione analitica del corpo → perdita della spontaneità → zoppia psicologica</div></div></div>
+          <div class="schema-item" style="margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border)">
+            <div class="schema-dot" style="background:var(--purple); box-shadow:0 0 6px rgba(123,94,167,0.6)"></div>
+            <div><div class="schema-label">Paradosso sveviano</div><div class="schema-desc">La coscienza, invece di aiutare l'uomo a dominare la realtà, diventa essa stessa una forma di malattia.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="psicoanalisi" class="detail-section">
+  <div class="container">
+    <div class="detail-layout reverse">
+      <div class="detail-text reveal">
+        <div class="section-tag">Lezione VI</div>
+        <h2>Il funerale mancato:<br>un lapsus freudiano</h2>
+        <p>Nel giorno del funerale di Guido Speier — marito di Ada e rivale di Zeno — il protagonista segue per errore il corteo funebre sbagliato, arrivando al cimitero quando la cerimonia è già terminata.</p>
+        <p>A prima vista è quasi una scena comica. Ma alla luce della psicoanalisi freudiana acquista un significato ben più profondo.</p>
+        <p>Secondo Freud, gli errori apparentemente casuali — dimenticanze, lapsus, sbagli — non sono mai davvero casuali. Sono l'espressione di un <em>desiderio inconscio</em> che la coscienza non può ammettere apertamente.</p>
+        <blockquote>
+          <p>«L'inconscio trova una via per evitare una situazione che la coscienza non riesce ad affrontare.»</p>
+          <cite>— Dagli appunti di lezione</cite>
+        </blockquote>
+        <p>Zeno prova sentimenti ambivalenti verso Guido: rivale nel lavoro, marito di Ada, immagine di quella sicurezza che Zeno non ha mai posseduto. L'errore è il compromesso psichico perfetto: l'inconscio ottiene ciò che desidera, mentre la coscienza trova una spiegazione accettabile.</p>
+        <p>Svevo utilizza la psicoanalisi non come terapia da credere, ma come <strong style="color:var(--yellow)">strumento letterario</strong> per svelare i meccanismi nascosti dell'individuo moderno.</p>
+      </div>
+      <div class="visual-panel reveal">
+        <div class="schema-box">
+          <h4>Il meccanismo del lapsus</h4>
+          <div class="schema-item"><div class="schema-dot" style="background:var(--purple); box-shadow:0 0 6px rgba(123,94,167,0.6)"></div><div><div class="schema-label">L'inconscio</div><div class="schema-desc">Prova rivalità e ostilità verso Guido. Non vuole affrontare il funerale.</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">La coscienza</div><div class="schema-desc">Non può accettare questi sentimenti apertamente.</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Il lapsus</div><div class="schema-desc">Errore apparentemente casuale: Zeno segue il corteo sbagliato.</div></div></div>
+          <div class="schema-item"><div class="schema-dot" style="background:var(--lilac); box-shadow:0 0 6px rgba(184,159,220,0.5)"></div><div><div class="schema-label">La riparazione</div><div class="schema-desc">Zeno aiuta Ada negli affari come forma di compensazione morale.</div></div></div>
+        </div>
+        <div class="concept-box" style="margin-top:1.5rem">
+          <h4>Svevo e Freud</h4>
+          <p>La psicoanalisi per Svevo non è una cura, è una <strong style="color:var(--yellow)">grande fonte letteraria</strong>. Uno strumento per raccontare l'uomo e la sua coscienza, non per risolverne definitivamente i conflitti.</p>
+          <br>
+          <p style="font-size:0.83rem;">È proprio in questa tensione tra conoscenza e impossibilità di guarigione che nasce la forza del romanzo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="poetica" class="detail-section">
+  <div class="container">
+    <div class="section-tag reveal">Lezione VIII</div>
+    <h2 class="section-title reveal">La poetica di Svevo:<br>ironia e senso di colpa</h2>
+    <div class="detail-layout" style="margin-top:3rem">
+      <div class="detail-text reveal">
+        <p>La poetica di Svevo ruota attorno a una figura nuova nella letteratura europea: l'inetto. Ma ciò che rende originale il personaggio non è solo la sua debolezza — è il <em>modo in cui egli racconta se stesso</em>.</p>
+        <p>Il racconto di Zeno è attraversato da una continua ironia. Egli osserva la propria vita con distacco, trasforma i propri errori in episodi quasi comici. Ma questa ironia non è mai pura leggerezza. Sotto di essa agisce continuamente il <strong style="color:var(--yellow)">senso di colpa</strong>.</p>
+        <p>Il dottor S. avverte già in apertura che le memorie di Zeno sono «un miscuglio di verità e menzogne». La memoria non è neutrale: è uno strumento con cui Zeno tenta di spiegare le proprie debolezze, attenuare le responsabilità, convincersi della propria innocenza.</p>
+        <p>Il meccanismo si ripete con precisione ossessiva: accade un evento → Zeno lo ricorda → lo interpreta → cerca una spiegazione che riduca la sua responsabilità. Il romanzo diventa così un processo interiore in cui Zeno è contemporaneamente <em>imputato, testimone e avvocato difensore</em>.</p>
+        <blockquote>
+          <p>«Nonostante la mia passione per Ada, compresi che Guido era un marito adatto a lei. Più tardi mi consolai pensando che, se l'avessi sposata io, le avrei dato di meno di quanto ella meritava.»</p>
+          <cite>— Zeno Cosini, <em>La coscienza di Zeno</em></cite>
+        </blockquote>
+        <p>Schema: colpa → razionalizzazione → autoassoluzione. Sempre. L'ironia protegge l'io da una condanna troppo severa.</p>
+      </div>
+      <div class="visual-panel reveal">
+        <div class="concept-box">
+          <h4>I tre pilastri della poetica sveviana</h4>
+          <div style="margin-top:1.2rem; padding-bottom:1rem; border-bottom:1px solid var(--border)">
+            <p style="color:var(--yellow); font-family:'Syne Mono',monospace; font-size:0.68rem; margin-bottom:0.35rem; letter-spacing:0.1em">01 — LA COSCIENZA</p>
+            <p style="font-size:0.88rem;">Luogo del conflitto interiore tra verità e autoinganni.</p>
+          </div>
+          <div style="margin-top:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border)">
+            <p style="color:var(--yellow); font-family:'Syne Mono',monospace; font-size:0.68rem; margin-bottom:0.35rem; letter-spacing:0.1em">02 — L'IRONIA</p>
+            <p style="font-size:0.88rem;">Non leggerezza, ma difesa psicologica. Distanza da sé per non essere schiacciati dal giudizio morale.</p>
+          </div>
+          <div style="margin-top:1rem">
+            <p style="color:var(--yellow); font-family:'Syne Mono',monospace; font-size:0.68rem; margin-bottom:0.35rem; letter-spacing:0.1em">03 — IL SENSO DI COLPA</p>
+            <p style="font-size:0.88rem;">La verità profonda dell'individuo. Non scompare mai, nonostante tutte le giustificazioni.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail-section">
+  <div class="container">
+    <div class="section-tag reveal">Lezione IX</div>
+    <h2 class="section-title reveal">Pirandello vs Svevo:<br>due poetiche dell'ironia</h2>
+    <div class="reveal" style="margin-top:1rem; max-width:680px">
+      <p>Pirandello e Svevo partono entrambi da una constatazione tipica della modernità: l'uomo non coincide più con se stesso. L'identità è fragile, contraddittoria, divisa. L'ironia nasce proprio da questa frattura — ma i due autori la usano in modo profondamente diverso.</p>
+    </div>
+    <div class="comparison-grid reveal">
+      <div class="comparison-col">
+        <h3>Luigi Pirandello</h3>
+        <ul>
+          <li>L'ironia come punto di partenza della conoscenza</li>
+          <li>Dall'avvertimento del contrario al sentimento del contrario</li>
+          <li>Il riso si trasforma in pietà e comprensione del dolore</li>
+          <li>Movimento <strong style="color:var(--yellow)">esterno</strong>: l'osservatore guarda gli altri</li>
+          <li>Svela le illusioni dell'uomo, scava sotto la superficie</li>
+          <li>Schema: ironia → sentimento del contrario → verità tragica</li>
+        </ul>
+      </div>
+      <div class="comparison-col">
+        <h3>Italo Svevo</h3>
+        <ul>
+          <li>L'ironia come difesa della coscienza</li>
+          <li>Non per scoprire la verità degli altri, ma per difendersi da se stessi</li>
+          <li>Il riso non porta alla verità: è una maschera</li>
+          <li>Movimento <strong style="color:var(--lilac)">interno</strong>: il soggetto osserva se stesso</li>
+          <li>Mostra come l'uomo viva grazie alle proprie illusioni</li>
+          <li>Schema: colpa → ironia → autoassoluzione</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:2rem; padding:2rem; background:var(--yglw2); border-left:3px solid var(--yellow); box-shadow:inset 0 0 0 1px rgba(245,197,24,0.1)">
+      <p style="font-style:italic; font-size:1.05rem; color:var(--text); line-height:1.75">
+        In Pirandello l'ironia <strong style="color:var(--yellow)">svela</strong> la tragedia.<br>
+        In Svevo l'ironia la <strong style="color:var(--lilac)">nasconde</strong>.<br><br>
+        Per questo Zeno continua a vivere: non perché abbia capito la verità, ma perché riesce sempre a raccontarsene un'altra.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="finale" class="detail-section" style="background:var(--deep) !important">
+  <div class="container">
+    <div class="detail-layout">
+      <div class="detail-text reveal">
+        <div class="section-tag">Lezione X</div>
+        <h2>La deflagrazione<br>finale</h2>
+        <p>Il romanzo si conclude con una delle immagini più inquietanti della letteratura del Novecento. Zeno allarga lo sguardo dal singolo individuo all'intera umanità: la sua diagnosi diventa universale.</p>
+        <p>La malattia non è di un individuo che potrebbe guarire: è della specie. Gli animali si adattano modificando il corpo. L'uomo invece non cambia se stesso — <em>inventa strumenti</em>. Ogni invenzione nasce da una mancanza.</p>
+        <p>Il vero protagonista della catastrofe finale non è l'ordigno, ma <strong style="color:var(--yellow)">«un uomo più malato degli altri»</strong>. La distruzione del mondo non nasce da una forza straordinaria, ma da un eccesso della stessa malattia che caratterizza tutti gli uomini.</p>
+        <blockquote>
+          <p>«Perché voler curare la nostra malattia? Davvero dobbiamo togliere all'umanità quello ch'essa ha di meglio?»</p>
+          <cite>— Italo Svevo, lettera del 1927</cite>
+        </blockquote>
+        <p>Il paradosso è totale: la stessa incompletezza che spinge l'uomo a evolversi, inventare e costruire civiltà è anche la forza che può condurlo all'autodistruzione. L'umanità produce, alla fine del proprio sviluppo, la figura che porta a compimento la sua logica.</p>
+      </div>
+      <div class="visual-panel reveal">
+        <div class="explosion-visual">
+          <div class="explosion-circle">
+            <div class="explosion-text">L'uomo<br>è un abbozzo</div>
+          </div>
+          <div class="explosion-quote">
+            «La terra, in guise di nebulosa,<br>si libererà dagli uomini.»
+          </div>
+        </div>
+        <div class="concept-box" style="margin-top:2px">
+          <h4>Il paradosso evolutivo</h4>
+          <div class="schema-item"><div class="schema-dot" style="background:var(--purple); box-shadow:0 0 6px rgba(123,94,167,0.6)"></div><div><div class="schema-label">Incompletezza</div><div class="schema-desc">L'uomo non è adattato → inventa strumenti</div></div></div>
+          <div class="schema-item"><div class="schema-dot"></div><div><div class="schema-label">Progresso</div><div class="schema-desc">Gli strumenti crescono → nasce la civiltà tecnica</div></div></div>
+          <div class="schema-item"><div class="schema-dot" style="background:var(--yellow)"></div><div><div class="schema-label" style="color:var(--yellow)">Punto estremo</div><div class="schema-desc">L'intelligenza tecnica separata da ogni limite naturale → distruzione</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Appunti di letteratura italiana · <span>Italo Svevo</span> · La coscienza di Zeno</p>
+  <p style="margin-top:0.5rem; opacity:0.45">Elaborato da note di lezione · 1861 — 1928</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .timeline-item, .topic-card').forEach(el => observer.observe(el));
+  document.querySelectorAll('.topic-card').forEach((card, i) => { card.style.transitionDelay = `${i * 0.07}s`; });
+  document.querySelectorAll('.timeline-item').forEach((item, i) => { item.style.transitionDelay = `${i * 0.1}s`; });
+</script>
+
+</body>
+</html>
